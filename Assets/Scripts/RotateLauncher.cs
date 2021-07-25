@@ -8,6 +8,8 @@ public class RotateLauncher : MonoBehaviour
 	public float ballSpeed = 10;
 	public GameObject instanceBall;
 
+	private bool clicked = false;
+
 	private Vector3 lookPos;
 
 	private void Start()
@@ -52,11 +54,14 @@ public class RotateLauncher : MonoBehaviour
 
 	private void ShootBall()
 	{
-		if (Input.GetKeyDown(KeyCode.Mouse0))
+		if (Input.GetKeyDown(KeyCode.Mouse0) && !clicked)
 		{
 			instanceBall.GetComponent<Rigidbody>().AddForce(instanceBall.transform.forward * ballSpeed);
+			clicked = true;
 			CreateBall();
 		}
+		if (Input.GetKeyUp(KeyCode.Mouse0))
+			clicked = false;
 	}
 
 	private void CreateBall()
